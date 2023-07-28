@@ -4,11 +4,9 @@ import Cart from "@/components/cart";
 import { useContext, useEffect } from "react";
 import { CartContext } from "@/store/cart-context";
 import { getSavedItem as getLocalSaved } from "@/util/helper";
-import { useQuery } from "@tanstack/react-query";
 
 function App() {
   const { getSavedItem } = useContext(CartContext);
-  const {} = useQuery({})
 
   useEffect(() => {
     const { items, totalAmount } = getLocalSaved();
