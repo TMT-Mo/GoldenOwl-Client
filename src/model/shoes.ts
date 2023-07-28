@@ -7,6 +7,10 @@ export interface IShoes {
     price: number,
 }
 
+export interface GetShoesListResponse{
+    items: IShoes[]
+}
+
 export interface IShoesList extends IShoes {
     amount: number
   }

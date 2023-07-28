@@ -1,4 +1,4 @@
-const API_HEAD = 'http://localhost:5000/api/v1'
+const API_HEAD = 'https://goldenowl.onrender.com/api/v1'
 export const apis = {
     product: {
       head: API_HEAD,

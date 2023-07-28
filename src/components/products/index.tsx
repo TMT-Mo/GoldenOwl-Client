@@ -1,23 +1,34 @@
-import { data } from "@/util/data";
+// import { data } from "@/util/data";
 import React, { Fragment, useContext } from "react";
 import blob from "@/assets/blob.svg";
 import nike from "@/assets/nike.png";
 import checked from "@/assets/check.png";
 import { CartContext } from "@/store/cart-context";
+import { useQuery } from "@tanstack/react-query";
+import { GetShoesListResponse, IShoes } from "@/model/shoes";
 
 const Products = () => {
   const { addItem, items } = useContext(CartContext);
+
+  const fetchProducts = async () => {
+    const response = await fetch('http://localhost:5000/api/v1/products');
+    const data = await response.json();
+    return data as GetShoesListResponse;
+  };
+
+  const { data, isLoading, error } = useQuery<GetShoesListResponse>({queryKey: ['shoes'], queryFn: fetchProducts });
 
   return (
     <div className="card card-bg" style={{ borderRadius: 28, minHeight: 400 }}>
       <img src={blob} className="absolute -top-40 -left-40"></img>
       <img src={nike} alt="" className="w-10" />
       <p className="font-bold text-xl z-10">Our Products</p>
-      <div
+      {isLoading && <div className="text-center">Loading...</div>}
+      {data?.items && <div
         className="flex flex-col space-y-4 overflow-scroll scrollbar-hide z-10"
-        style={{ maxHeight: 400 }}
+        style={{ maxHeight: 400, minHeight: 400}}
       >
-        {data.shoes.map((item) => {
+        {data?.items.map((item) => {
           const { color, description, id, image, name, price } = item;
           const existingItem = items?.find((existed) => existed.id === item.id);
           return (
@@ -45,7 +56,7 @@ const Products = () => {
             </Fragment>
           );
         })}
-      </div>
+      </div>}
     </div>
   );
 };
