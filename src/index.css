@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .card {
+    @apply px-7 py-3 flex flex-col max-w-xs w-full shadow-xl bg-white relative overflow-hidden space-y-4 drop-shadow-lg;
+  }
+}
+
+@font-face {
+  font-family: "rubik";
+  src: url("./font/Rubik-VariableFont_wght.woff2") format("woff2"),
+    url("./font/Rubik-VariableFont_wght.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  scroll-behavior: auto;
+  font-family: "rubik", sans-serif;
+}
+
+.card-bg{
+  
+}
+
+::-webkit-scrollbar{
+  width: 10px;
+}
+::-webkit-scrollbar-track{
+  background: #fff;
+  opacity: 0.5;
+}
+::-webkit-scrollbar-thumb{
+  border-radius: 25px;
+  background: #dfe6e9;
+}

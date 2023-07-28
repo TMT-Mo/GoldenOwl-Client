@@ -1,0 +1,9 @@
+.background {
+  width: 100vw;
+  min-height: 100vh;
+  /* overflow: scroll; */
+  background-position: bottom;
+  background-image: url('./assets/wave.svg');
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
