@@ -1,6 +1,6 @@
 import { CartContext, IContext } from "./cart-context";
 
-import { ReactNode, useCallback, useReducer } from "react";
+import { ReactNode, useReducer } from "react";
 import { IShoes, IShoesList } from "../model/shoes";
 import { getSavedItem, saveItem } from "@/util/helper";
 
@@ -16,9 +16,9 @@ interface Props {
 interface Action {
   payload: {
     type: "ADD" | "REMOVE" | "DELETE" | "GET SAVED ITEM";
-    item?: IShoes
-    items?: IShoesList[]
-    totalAmount?: number
+    item?: IShoes;
+    items?: IShoesList[];
+    totalAmount?: number;
     id?: number;
   };
 }
@@ -52,7 +52,7 @@ const cartReducer: ICartReducer = (state, { payload }) => {
         totalAmount += amount * price;
       });
 
-      saveItem(updateItemList, totalAmount)
+      saveItem(updateItemList, totalAmount);
 
       return {
         items: updateItemList,
@@ -69,7 +69,7 @@ const cartReducer: ICartReducer = (state, { payload }) => {
         totalAmount += amount * price;
       });
 
-      saveItem(updateItemList, totalAmount)
+      saveItem(updateItemList, totalAmount);
 
       return {
         items: updateItemList,
@@ -82,12 +82,11 @@ const cartReducer: ICartReducer = (state, { payload }) => {
       );
       const existingItem = state.items[existingItemIndex];
       let updateItemList: IShoesList[] = [...state.items!];
-      if(existingItem.amount === 1){
+      if (existingItem.amount === 1) {
         updateItemList = updateItemList.filter(
           (item) => item.id !== payload.id
         );
-      }
-      else{
+      } else {
         updateItemList[existingItemIndex].amount -= 1;
       }
       let totalAmount = 0;
@@ -96,22 +95,20 @@ const cartReducer: ICartReducer = (state, { payload }) => {
         totalAmount += amount * price;
       });
 
-      saveItem(updateItemList, totalAmount)
+      saveItem(updateItemList, totalAmount);
 
       return {
         items: updateItemList,
         totalAmount,
       };
-    
     }
 
     case "GET SAVED ITEM": {
       // debugger
       return {
-        items: payload.items,
-        totalAmount: payload.totalAmount
-      }
-      
+        items: payload.items!,
+        totalAmount: payload.totalAmount!,
+      };
     }
 
     default:
@@ -150,17 +147,15 @@ const CartProvider = (props: Props) => {
     });
   };
 
-  const onGetSavedItemHandler = 
-    (items: IShoesList[], totalAmount: number) => {
-       dispatchCartAction({
-        payload: {
-          type: "GET SAVED ITEM",
-          items,
-          totalAmount
-        },
-      });
-    }
-  
+  const onGetSavedItemHandler = (items: IShoesList[], totalAmount: number) => {
+    dispatchCartAction({
+      payload: {
+        type: "GET SAVED ITEM",
+        items,
+        totalAmount,
+      },
+    });
+  };
 
   const cartCtx: IContext = {
     items: cartState.items,
@@ -168,7 +163,7 @@ const CartProvider = (props: Props) => {
     addItem: onAddCartHandler,
     deleteItem: onDeleteCartHandler,
     removeItem: onRemoveItemHandler,
-    getSavedItem: onGetSavedItemHandler
+    getSavedItem: onGetSavedItemHandler,
   };
 
   return (

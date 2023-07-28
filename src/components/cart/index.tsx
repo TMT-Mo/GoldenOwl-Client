@@ -8,7 +8,6 @@ import { CartContext } from "@/store/cart-context";
 const Cart = () => {
   const {items, addItem, totalAmount, deleteItem, removeItem} = useContext(CartContext)
 
-  console.log(totalAmount)
   return (
     <div className="card card-bg" style={{ borderRadius: 28 }}>
       <img src={blob} className="absolute -top-40 -left-40"></img>
